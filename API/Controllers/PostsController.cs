@@ -1,4 +1,5 @@
-﻿using Data.Repository;
+﻿using API.BusinessLogic;
+using Data.Repository;
 using Models;
 using System;
 using System.Collections.Generic;
@@ -18,17 +19,18 @@ namespace API.Controllers
             _repository = repository;
         }
 
+        [Authorize]
         // GET: api/Posts
         public IEnumerable<Posts> Get()
         {
-            var userId = "";
+            var userId = UserClaims.GetUserId();
             return _repository.GetPostsByUserId(userId);
         }
 
         // GET: api/Posts/5
-        public Posts Get(int postId)
+        public Posts Get(int id)
         {
-            return _repository.GetPostById(postId);
+            return _repository.GetPostById(id);
         }
 
         // POST: api/Posts
@@ -38,15 +40,15 @@ namespace API.Controllers
         }
 
         // PUT: api/Posts/5
-        public void Put(int postId, [FromBody]Posts post)
+        public void Put(int id, [FromBody]Posts post)
         {
             var result = _repository.UpdatePost(post);
         }
 
         // DELETE: api/Posts/5
-        public void Delete(int postId)
+        public void Delete(int id)
         {
-            _repository.DeletePost(postId);
+            _repository.DeletePost(id);
         }
     }
 }
