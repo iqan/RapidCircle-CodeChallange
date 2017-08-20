@@ -3,27 +3,32 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WebApp.BusinessLogic;
 
 namespace WebApp.Controllers
 {
     public class HomeController : Controller
     {
+        string _accessToken;
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Timeline()
         {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
+            try
+            {
+                if (string.IsNullOrEmpty(_accessToken))
+                {
+                    var accessToken = Users.GetAccessToken(this.HttpContext);
+                    _accessToken = accessToken.Result;
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "An error occurred. Detais: " + ex.Message;
+            }
             return View();
         }
     }
