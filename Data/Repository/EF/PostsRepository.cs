@@ -1,6 +1,7 @@
 ﻿using Data.DataContext;
 using System;
 using System.Collections.Generic;
+using Models;
 
 namespace Data.Repository.EF
 {
@@ -28,12 +29,12 @@ namespace Data.Repository.EF
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Models.Posts> GetAllPosts()
+        public Posts GetPostById(int postId)
         {
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Models.Posts> GetPostsById(string userId)
+        public IEnumerable<Posts> GetPostsByUserId(string userId)
         {
             throw new NotImplementedException();
         }

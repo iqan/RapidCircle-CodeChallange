@@ -50,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataContext\EFContext.cs" />
+    <Compile Include="DataContext\IDataContext.cs" />
     <Compile Include="Repository\EF\FriendsRepository.cs" />
     <Compile Include="Repository\IFriendsRepository.cs" />
     <Compile Include="Repository\IPostsRepository.cs" />

@@ -3,9 +3,9 @@ using System.Data.Entity;
 
 namespace Data.DataContext
 {
-    public class EFContext : DbContext
+    public class EFContext : DbContext, IDataContext
     {
-        public EFContext() : base("Connection") { }
+        public EFContext(string connectionString) : base(connectionString) { }
 
         public DbSet<Posts> Posts { get; set; }
         public DbSet<Friends> Friends { get; set; }
