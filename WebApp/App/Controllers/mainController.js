@@ -6,6 +6,7 @@
     };
     $scope.accessToken = "";
     $scope.posts = [];
+    $scope.totalPosts = 1;
 
     authService.getAccessToken();
     $scope.accessToken = sessionStorage.getItem('iqans.accessToken');
@@ -17,7 +18,7 @@
                 console.log(result.data);
                 $scope.newPost.Text = "";
             });
-    }
+    };
 
     $scope.getPosts = function () {
         checkToken();
@@ -25,7 +26,13 @@
             .then(function (result) {
                 $scope.posts = result.data;
             });
-        console.log($scope.posts);
+        //console.log($scope.posts);
+    };
+
+    $scope.loadPosts = function () {
+        if ($scope.totalPosts <= $scope.posts.length) {
+            $scope.totalPosts += 1;
+        }
     };
 
     checkToken = function () {
