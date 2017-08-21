@@ -7,9 +7,10 @@ using WebApp.BusinessLogic;
 
 namespace WebApp.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
-        string _accessToken;
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View();
@@ -19,10 +20,10 @@ namespace WebApp.Controllers
         {
             try
             {
-                if (string.IsNullOrEmpty(_accessToken))
+                if (true)
                 {
                     var accessToken = Users.GetAccessToken(this.HttpContext);
-                    _accessToken = accessToken.Result;
+                    ViewBag.AccessToken = accessToken.Result;
                 }
             }
             catch (Exception ex)
@@ -30,6 +31,20 @@ namespace WebApp.Controllers
                 ViewBag.Error = "An error occurred. Detais: " + ex.Message;
             }
             return View();
+        }
+
+        public JsonResult GetAccessToken()
+        {
+            try
+            {
+                var accessToken = Users.GetAccessToken(this.HttpContext);
+                return Json(accessToken.Result, JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "An error occurred. Detais: " + ex.Message;
+            }
+            return null;
         }
     }
 }

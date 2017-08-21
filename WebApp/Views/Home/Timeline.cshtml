@@ -13,7 +13,7 @@
 <div class="row" ng-app="app" ng-controller="mainController">
     <div class="col-md-3 well" style="margin:5px;">
         <div>
-            <img class="image" src="" alt="picture" />
+            <img src="~/favicon.ico" />
         </div>
     </div>
     <div class="col-md-5 well" style="margin:5px;">
@@ -21,6 +21,14 @@
             <input class="form-control" type="text" name="postText" ng-model="newPost" />
             <button class="btn btn-primary" type="button" ng-click="post()" style="padding:5px;">Post</button>
         </form>
+        <label>{{accessToken}}</label>
+        <div style="margin:20px"></div>
+        <button class="btn btn-primary" type="button" ng-click="getPosts()" style="padding:5px;">Get Posts</button>
+        <div class="well" style="margin:5px;">
+            <ul ng-repeat="post in posts">
+                <li>{{ post.Text }}</li>
+            </ul>
+        </div>
     </div>
     <div class="col-md-3 well" style="margin:5px;">
 
@@ -31,6 +39,7 @@
     <script src="~/Scripts/angular.min.js" type="text/javascript"></script>
     <script src="~/Scripts/angular-route.min.js" type="text/javascript"></script>
     <script src="~/Scripts/angular-animate.min.js" type="text/javascript"></script>
-    <script src="~/App/Controller/mainController.js"></script>
+    <script src="~/App/Controllers/mainFactory.js"></script>
+    <script src="~/App/Controllers/mainController.js"></script>
     <script src="~/App/app.js"></script>
 }

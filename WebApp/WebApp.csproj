@@ -179,7 +179,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\app.js" />
-    <Content Include="App\Controller\mainController.js" />
+    <Content Include="App\Controllers\mainFactory.js" />
+    <Content Include="App\Controllers\mainController.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -995,7 +996,6 @@
     <Content Include="Views\Home\Timeline.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App\Views\" />
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
     <Folder Include="Services\" />
