@@ -4,6 +4,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
+using WebApp.Services;
 
 namespace WebApp.BusinessLogic
 {
@@ -12,7 +13,12 @@ namespace WebApp.BusinessLogic
         public static async Task<string> GetAccessToken(HttpContextBase httpContext)
         {
             var accessToken = string.Empty;
+            accessToken = await GetAccessToken(httpContext, accessToken);
+            return accessToken;
+        }
 
+        private static async Task<string> GetAccessToken(HttpContextBase httpContext, string accessToken)
+        {
             try
             {
                 var scope = new string[] { Startup.ReadTasksScope };
@@ -37,6 +43,22 @@ namespace WebApp.BusinessLogic
             }
 
             return accessToken;
+        }
+
+        internal static void AddUserIfNotExist(string userId, string name, string accessToken)
+        {
+            try
+            {
+                var user = new Models.Users();
+                user.UserId = userId;
+                user.Name = name;
+
+                UsersApi.Adduser(user, accessToken);
+                
+            }
+            catch (System.Exception ex)
+            {
+            }
         }
     }
 }

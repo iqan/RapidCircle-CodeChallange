@@ -1,18 +1,38 @@
 ﻿var mainController = function ($scope, mainFactory) {
     
-    $scope.newPost = "";
+    $scope.newPost = {
+        UserId:"",
+        Text: ""
+    };
     $scope.accessToken = "";
     $scope.posts = [];
 
     mainFactory.getAccessToken();
     $scope.accessToken = sessionStorage.getItem('iqans.accessToken');
 
-    $scope.post = function () {        
-        alert('new post: ' + $scope.newPost);
+    $scope.post = function () {
+        checkToken();
+        mainFactory.doPost($scope.accessToken, $scope.newPost)
+            .then(function (result) {
+                console.log(result.data);
+                $scope.newPost.Text = "";
+            });
     }
 
     $scope.getPosts = function () {
-        $scope.posts = mainFactory.getPosts($scope.accessToken);
+        checkToken();
+        $scope.posts = mainFactory.getPosts($scope.accessToken)
+            .then(function (result) {
+                $scope.posts = result.data;
+            });
+        console.log($scope.posts);
+    };
+
+    checkToken = function () {
+        if ($scope.accessToken == null || $scope.accessToken== undefined) {
+            mainFactory.getAccessToken();
+            $scope.accessToken = sessionStorage.getItem('iqans.accessToken');
+        }
     };
 }
 

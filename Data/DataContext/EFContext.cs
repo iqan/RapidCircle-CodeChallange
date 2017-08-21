@@ -9,5 +9,7 @@ namespace Data.DataContext
 
         public DbSet<Posts> Posts { get; set; }
         public DbSet<Friends> Friends { get; set; }
+
+        public DbSet<Users> Users { get; set; }
     }
 }

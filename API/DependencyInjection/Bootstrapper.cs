@@ -25,6 +25,11 @@ namespace API.DependencyInjection
 
             builder.RegisterType<FriendsRepository>()
                 .As<IFriendsRepository>();
+            builder.RegisterType<FriendsRepository>()
+                .As<IFriendsRepository>();
+
+            builder.RegisterType<UsersRepository>()
+                .As<IUsersRepository>();
 
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 

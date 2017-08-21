@@ -1,48 +1,46 @@
-﻿using Data.DataContext;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Models;
+using Data.DataContext;
 using System.Linq;
 
 namespace Data.Repository.EF
 {
-    public class PostsRepository : IPostsRepository
+    public class UsersRepository : IUsersRepository
     {
         private readonly EFContext _context;
 
-        public PostsRepository(EFContext context)
+        public UsersRepository(EFContext context)
         {
             _context = context;
         }
 
-        public int AddPost(Posts post)
+        public int AddUser(Users user)
         {
-            var result = _context.Posts.Add(post);
-            _context.SaveChanges();
-            return result.Id;
+            _context.Users.Add(user);
+            var result = _context.SaveChanges();
+            return result;
         }
 
-        public void DeletePost(int postId)
-        {
-            // TODO implement
-        }
-
-        public Posts GetPostById(int postId)
-        {
-            return _context.Posts.Find(postId);
-        }
-
-        public IEnumerable<Posts> GetPostsByUserId(string userId)
-        {
-            return _context.Posts.Where(p => p.UserId.Equals(userId));
-        }
-
-        public int UpdatePost(Posts post)
+        public void DeleteUser(int userId)
         {
             // TODO implement
-            return 1;
         }
 
+        public Users GetUserById(int userId)
+        {
+            return _context.Users.Find(userId);
+        }
+
+        public Users GetUserByUserId(string userId)
+        {
+            return _context.Users.FirstOrDefault(p => p.UserId.Equals(userId));
+        }
+
+        public IEnumerable<Users> GetUsers()
+        {
+            return _context.Users;
+        }
 
         #region Dispose Methods
         private bool disposed = false;

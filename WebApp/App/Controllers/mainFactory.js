@@ -17,35 +17,34 @@
     };
 
     fac.getPosts = function (token) {
-        var req = {
+        return $http({
             method: 'GET',
             url: 'https://localhost:44388/api/posts',
             headers: {
-                'Authorization': 'bearer '+ token
+                'Authorization': 'bearer ' + token
             }
-        };
-        $http(req).then(function (result) {
-            var posts = result.data;
-            console.log('got posts. Posts: ' + posts);
-        }, function (err) {
-            console.log('error occurred while getting posts.');
-            console.log(err);
         });
     };
 
-    fac.doPost = function (post) {
-        var req = {
+    fac.getPostById = function (token, postId) {
+        $http({
+            method: 'GET',
+            url: 'https://localhost:44388/api/posts/' + postId,
+            headers: {
+                'Authorization': 'bearer ' + token
+            }
+        });
+    };
+
+    fac.doPost = function (token, post) {
+        return $http({
             method: 'POST',
             url: 'https://localhost:44388/api/posts',
             headers: {
-                'Content-Type': undefined
+                'Authorization': 'bearer ' + token,
+                'Content-Type' : 'application/json'
             },
-            data: { post: post }
-        };
-        $http(req).then(function (result) {
-            
-        }, function (err) {
-            console.log('error occurred while posting post. error: ' + err);
+            data: post
         });
     };
 

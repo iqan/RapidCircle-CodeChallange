@@ -23,10 +23,18 @@ namespace API.Controllers
 
         [Authorize]
         // GET: api/Posts
-        public IEnumerable<Posts> Get()
+        public IEnumerable<ViewModels.Posts> Get()
         {
             var userId = UserClaims.GetUserId();
-            return _repository.GetPostsByUserId(userId);
+            var posts = _repository.GetPostsByUserId(userId);
+            var postList = posts.Select(item => new ViewModels.Posts {
+                Id = item.Id,
+                DatePosted = item.DatePosted,
+                Text = item.Text,
+                UserId = item.UserId,
+                UserName = UserClaims.GetUserName(item.UserId)
+            });
+            return postList;
         }
 
         // GET: api/Posts/5
@@ -36,9 +44,13 @@ namespace API.Controllers
         }
 
         // POST: api/Posts
-        public void Post([FromBody]Posts post)
+        public IHttpActionResult Post([FromBody]Posts post)
         {
+            var userId = UserClaims.GetUserId();
+            post.UserId = userId;
+            post.DatePosted = DateTime.Now;
             var result = _repository.AddPost(post);
+            return CreatedAtRoute("DefaultApi", new { controller = "posts", id = post.Id }, post);
         }
 
         // PUT: api/Posts/5

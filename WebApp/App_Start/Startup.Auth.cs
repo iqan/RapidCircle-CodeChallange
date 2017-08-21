@@ -11,6 +11,7 @@ using System.IdentityModel.Claims;
 using System.IdentityModel.Tokens;
 using System.Threading.Tasks;
 using System.Web;
+using WebApp.BusinessLogic;
 
 namespace WebApp
 {
@@ -142,6 +143,9 @@ namespace WebApp
             try
             {
                 AuthenticationResult result = await cca.AcquireTokenByAuthorizationCodeAsync(code, Scopes);
+
+                string userName = notification.AuthenticationTicket.Identity.Name;
+                Users.AddUserIfNotExist(signedInUserID, userName, result.AccessToken);
             }
             catch (Exception ex)
             {

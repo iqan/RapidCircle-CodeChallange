@@ -1,4 +1,5 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.Net;
 using System.Net.Http;
 using System.Security.Claims;
@@ -32,6 +33,11 @@ namespace API.BusinessLogic
                     ReasonPhrase = $"The Scope claim does not contain the {permission} permission."
                 });
             }
+        }
+
+        internal static string GetUserName(string userId)
+        {
+            return "user";
         }
     }
 }
