@@ -1,4 +1,6 @@
-﻿using System;
+﻿using API.Controllers;
+using Data.Repository.EF;
+using System;
 using System.Configuration;
 using System.Net;
 using System.Net.Http;
@@ -25,6 +27,14 @@ namespace API.BusinessLogic
 
         private static void HasRequiredScopes(string permission)
         {
+            if (ClaimsPrincipal.Current.FindFirst(scopeElement)==null)
+            {
+                throw new HttpResponseException(new HttpResponseMessage
+                {
+                    StatusCode = HttpStatusCode.Unauthorized,
+                    ReasonPhrase = $"Clear cache and cookies and try again."
+                });
+            }
             if (!ClaimsPrincipal.Current.FindFirst(scopeElement).Value.Contains(permission))
             {
                 throw new HttpResponseException(new HttpResponseMessage
@@ -33,11 +43,6 @@ namespace API.BusinessLogic
                     ReasonPhrase = $"The Scope claim does not contain the {permission} permission."
                 });
             }
-        }
-
-        internal static string GetUserName(string userId)
-        {
-            return "user";
         }
     }
 }

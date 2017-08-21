@@ -17,9 +17,13 @@ namespace Data.Repository.EF
 
         public int AddUser(Users user)
         {
-            _context.Users.Add(user);
-            var result = _context.SaveChanges();
-            return result;
+            if (_context.Users.FirstOrDefault(u => u.UserId == user.UserId) == null)
+            {
+                _context.Users.Add(user);
+                var result = _context.SaveChanges();
+                return result;
+            }
+            return 1;
         }
 
         public void DeleteUser(int userId)

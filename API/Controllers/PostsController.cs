@@ -11,29 +11,25 @@ using System.Web.Http.Cors;
 
 namespace API.Controllers
 {
+    [Authorize]
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class PostsController : ApiController
     {
         private readonly IPostsRepository _repository;
+        private readonly Mapper _mapper;
 
-        public PostsController(IPostsRepository repository)
+        public PostsController(IPostsRepository repository, Mapper mapper)
         {
             _repository = repository;
+            _mapper = mapper;
         }
-
-        [Authorize]
+        
         // GET: api/Posts
         public IEnumerable<ViewModels.Posts> Get()
         {
             var userId = UserClaims.GetUserId();
             var posts = _repository.GetPostsByUserId(userId);
-            var postList = posts.Select(item => new ViewModels.Posts {
-                Id = item.Id,
-                DatePosted = item.DatePosted,
-                Text = item.Text,
-                UserId = item.UserId,
-                UserName = UserClaims.GetUserName(item.UserId)
-            });
+            var postList = posts.Select(item => _mapper.MapToPostsViewModel(item));
             return postList;
         }
 

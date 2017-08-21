@@ -2,4 +2,5 @@
 
 app.controller('mainController', mainController);
 
-app.factory('mainFactory', mainFactory);
+app.factory('authService', authService);
+app.factory('postsService', postsService);

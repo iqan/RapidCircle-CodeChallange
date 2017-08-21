@@ -180,8 +180,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\app.js" />
-    <Content Include="App\Controllers\mainFactory.js" />
+    <Content Include="App\Services\authService.js" />
+    <Content Include="App\Services\postsService.js" />
     <Content Include="App\Controllers\mainController.js" />
+    <Content Include="App\Services\usersService.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -999,7 +1001,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Posts\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

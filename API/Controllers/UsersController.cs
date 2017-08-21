@@ -1,5 +1,6 @@
 ﻿using Data.Repository;
 using Models;
+using System.Collections.Generic;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
@@ -18,8 +19,16 @@ namespace API.Controllers
 
         public IHttpActionResult Post([FromBody]Users user)
         {
-            var result = _repository.AddUser(user);
-            return CreatedAtRoute("DefaultApi", new { controller = "users", id = user.Id }, user);
+            try
+            {
+                var result = _repository.AddUser(user);
+                return CreatedAtRoute("DefaultApi", new { controller = "users", id = user.Id }, user);
+            }
+            catch (System.Exception ex)
+            {
+                ModelState.AddModelError("","An error occurred. Error: "+ ex.Message);
+                return BadRequest(ModelState);
+            }
         }
 
         public Users GetUserById(int id)
@@ -27,9 +36,14 @@ namespace API.Controllers
             return _repository.GetUserById(id);
         }
 
-        public Users GetUserByUserId(string id)
+        public Users Get(string id)
         {
             return _repository.GetUserByUserId(id);
+        }
+
+        public IEnumerable<Users> Get()
+        {
+            return _repository.GetUsers();
         }
     }
 }
