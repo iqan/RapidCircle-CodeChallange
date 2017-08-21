@@ -1,4 +1,5 @@
-﻿using Autofac;
+﻿using API.BusinessLogic;
+using Autofac;
 using Autofac.Integration.WebApi;
 using Data.DataContext;
 using Data.Repository;
@@ -30,6 +31,9 @@ namespace API.DependencyInjection
 
             builder.RegisterType<UsersRepository>()
                 .As<IUsersRepository>();
+
+            builder.RegisterType<Mapper>()
+                .AsSelf();
 
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
