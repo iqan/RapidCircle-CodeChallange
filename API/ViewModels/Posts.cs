@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ViewModels
+namespace API.ViewModels
 {
     public class Posts
     {
