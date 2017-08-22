@@ -13,6 +13,7 @@
 
     $scope.post = function () {
         checkToken();
+        $scope.newPost.DatePosted = new Date();
         postsService.doPost($scope.accessToken, $scope.newPost)
             .then(function (result) {
                 console.log(result.data);
