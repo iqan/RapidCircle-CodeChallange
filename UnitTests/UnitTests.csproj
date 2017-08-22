@@ -66,11 +66,7 @@
     <Compile Include="API\Controllers\PostsControllerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Data\" />
-    <Folder Include="Models\" />
-    <Folder Include="WebApp\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
@@ -87,6 +83,11 @@
       <Project>{9F5D42F0-5997-4A2D-8129-066337483D00}</Project>
       <Name>Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\Placeholder.txt" />
+    <Content Include="Models\Placeholder.txt" />
+    <Content Include="WebApp\Placeholder.txt" />
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
