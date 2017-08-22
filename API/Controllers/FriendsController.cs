@@ -1,4 +1,5 @@
-﻿using Data.Repository;
+﻿using API.BusinessLogic;
+using Data.Repository;
 using Models;
 using System;
 using System.Collections.Generic;
@@ -15,10 +16,12 @@ namespace API.Controllers
     public class FriendsController : ApiController
     {
         private readonly IFriendsRepository _repository;
+        private readonly UserClaims _userClaims;
 
-        public FriendsController(IFriendsRepository repository)
+        public FriendsController(IFriendsRepository repository, UserClaims userClaims)
         {
             _repository = repository;
+            _userClaims = userClaims;
         }
 
         // GET: api/Friends/5
