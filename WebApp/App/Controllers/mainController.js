@@ -1,4 +1,4 @@
-﻿var mainController = function ($scope, authService, postsService) {
+﻿var mainController = function ($scope, authService, postsService, suggestionsService) {
     
     $scope.newPost = {
         UserId:"",
@@ -7,6 +7,7 @@
     $scope.accessToken = "";
     $scope.posts = [];
     $scope.totalPosts = 1;
+    $scope.suggestions = [];
 
     authService.getAccessToken();
     $scope.accessToken = sessionStorage.getItem('iqans.accessToken');
@@ -23,7 +24,7 @@
 
     $scope.getPosts = function () {
         checkToken();
-        $scope.posts = postsService.getPosts($scope.accessToken)
+        postsService.getPosts($scope.accessToken)
             .then(function (result) {
                 $scope.posts = result.data;
             });
@@ -36,6 +37,16 @@
         }
     };
 
+    $scope.getSuggestions = function () {
+        checkToken();
+        suggestionsService.getSuggestions($scope.accessToken)
+            .then(function (result) {
+                $scope.suggestions = result.data;
+            });
+        console.log('got suggestions');
+        console.log($scope.suggestions);
+    };
+
     checkToken = function () {
         if ($scope.accessToken === null || $scope.accessToken === undefined) {
             authService.getAccessToken();
@@ -44,4 +55,4 @@
     };
 }
 
-mainController.$inject = ['$scope', 'authService', 'postsService'];
+mainController.$inject = ['$scope', 'authService', 'postsService', 'suggestionsService'];

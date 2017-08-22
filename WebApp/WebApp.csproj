@@ -183,7 +183,7 @@
     <Content Include="App\Services\authService.js" />
     <Content Include="App\Services\postsService.js" />
     <Content Include="App\Controllers\mainController.js" />
-    <Content Include="App\Services\usersService.js" />
+    <Content Include="App\Services\suggestionsService.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />

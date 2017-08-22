@@ -42,7 +42,7 @@
         </div>
     </div>
     <div class="col-md-3 well" style="margin:5px;">
-
+        <button class="btn btn-primary" type="button" ng-click="getPosts();" style="margin:5px;">Get Suggestions</button>
     </div>
 </div>
 
@@ -50,10 +50,11 @@
     <script src="~/Scripts/angular.min.js" type="text/javascript"></script>
     <script src="~/Scripts/angular-route.min.js" type="text/javascript"></script>
     <script src="~/Scripts/angular-animate.min.js" type="text/javascript"></script>
-    <!--controllers-->
+    <!--services-->
     <script src="~/App/Services/authService.js"></script>
     <script src="~/App/Services/postsService.js"></script>
-    <!--services-->
+    <script src="~/App/Services/suggestionsService.js"></script>
+    <!--controllers-->
     <script src="~/App/Controllers/mainController.js"></script>
     <!--modules-->
     <script src="~/App/app.js"></script>
