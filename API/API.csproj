@@ -163,6 +163,7 @@
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="BusinessLogic\Mapper.cs" />
+    <Compile Include="BusinessLogic\Relations.cs" />
     <Compile Include="BusinessLogic\UserClaims.cs" />
     <Compile Include="Controllers\FriendsController.cs" />
     <Compile Include="Controllers\PostsController.cs" />

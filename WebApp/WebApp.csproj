@@ -181,6 +181,7 @@
   <ItemGroup>
     <Content Include="App\app.js" />
     <Content Include="App\Services\authService.js" />
+    <Content Include="App\Services\friendsService.js" />
     <Content Include="App\Services\postsService.js" />
     <Content Include="App\Controllers\mainController.js" />
     <Content Include="App\Services\suggestionsService.js" />

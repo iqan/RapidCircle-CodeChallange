@@ -15,25 +15,30 @@ namespace API.Controllers
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class FriendsController : ApiController
     {
-        private readonly IFriendsRepository _repository;
+        private readonly IFriendsRepository _friendsRepository;
         private readonly UserClaims _userClaims;
 
-        public FriendsController(IFriendsRepository repository, UserClaims userClaims)
+        public FriendsController(IFriendsRepository friendsRepository, UserClaims userClaims)
         {
-            _repository = repository;
+            _friendsRepository = friendsRepository;
             _userClaims = userClaims;
         }
 
-        // GET: api/Friends/5
-        public IEnumerable<Friends> Get(string id)
+        // GET: api/Friends
+        public IEnumerable<Friends> Get()
         {
-            return _repository.GetFriendsById(id);
+            var userId = _userClaims.GetUserId();
+            return _friendsRepository.GetFriendsById(userId);
         }
 
         // POST: api/Friends
         public IHttpActionResult Post([FromBody]Friends friend)
         {
-            var result = _repository.AddFriend(friend);
+            if (string.IsNullOrEmpty(friend.UserId))
+            {
+                friend.UserId = _userClaims.GetUserId();
+            }
+            var result = _friendsRepository.AddFriend(friend);
             return CreatedAtRoute("DefaultApi", new { controller = "friends", id = friend.Id }, friend);
         }
 

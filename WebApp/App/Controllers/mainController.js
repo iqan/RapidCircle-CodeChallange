@@ -1,4 +1,4 @@
-﻿var mainController = function ($scope, authService, postsService, suggestionsService) {
+﻿var mainController = function ($scope, authService, postsService, suggestionsService, friendsService) {
     
     $scope.newPost = {
         UserId:"",
@@ -6,8 +6,9 @@
     };
     $scope.accessToken = "";
     $scope.posts = [];
-    $scope.totalPosts = 1;
+    $scope.totalPosts = 5;
     $scope.suggestions = [];
+    $scope.totalSuggestions = 1;
 
     authService.getAccessToken();
     $scope.accessToken = sessionStorage.getItem('iqans.accessToken');
@@ -42,17 +43,41 @@
         suggestionsService.getSuggestions($scope.accessToken)
             .then(function (result) {
                 $scope.suggestions = result.data;
+                console.log('got suggestions');
+                console.log(result.data);
             });
-        console.log('got suggestions');
-        console.log($scope.suggestions);
+    };
+
+    $scope.loadSuggestions = function () {
+        if ($scope.totalSuggestions <= $scope.suggestions.length) {
+            $scope.totalSuggestions += 1;
+        }
+    };
+
+    $scope.addFriend = function (suggestion) {
+        var friend = { FriendId: suggestion.UserId };
+        console.log('adding friendId: ' + friend.FriendId);
+        friendsService.addFriend($scope.accessToken, friend)
+            .then(function (result) {
+                console.log('friend added');
+                console.log(result.data);
+            });
     };
 
     checkToken = function () {
         if ($scope.accessToken === null || $scope.accessToken === undefined) {
-            authService.getAccessToken();
-            $scope.accessToken = sessionStorage.getItem('iqans.accessToken');
+            tokenFromStorage = sessionStorage.getItem('iqans.accessToken');
+            if ($scope.accessToken === null || $scope.accessToken === undefined) {
+                authService.getAccessToken()
+                    .then(function (result) {
+                        $scope.accessToken = result.data;
+                        sessionStorage.setItem('iqans.accessToken', result.data);
+                    });
+            }else{
+                $scope.accessToken = tokenFromStorage;
+            }
         }
     };
 }
 
-mainController.$inject = ['$scope', 'authService', 'postsService', 'suggestionsService'];
+mainController.$inject = ['$scope', 'authService', 'postsService', 'suggestionsService', 'friendsService'];

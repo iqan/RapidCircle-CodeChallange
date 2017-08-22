@@ -42,7 +42,23 @@
         </div>
     </div>
     <div class="col-md-3 well" style="margin:5px;">
-        <button class="btn btn-primary" type="button" ng-click="getPosts();" style="margin:5px;">Get Suggestions</button>
+        <button class="btn btn-success" type="button" ng-click="getSuggestions();" style="margin:5px;">Get Suggestions</button>
+        <div style="margin:5px;">
+            <div class="well" ng-show="!suggestions.length">
+                No suggestions are available.
+            </div>
+            <div class="animate-repeat" ng-repeat="suggestion in suggestions| limitTo:totalSuggestions" ng-show="suggestions.length">
+                <div class="well" style="margin:2px;background-color:white;">
+                    <div class="list-group-item-heading" style="font-weight:bold;">
+                        {{ suggestion.Name }}
+                        <button class="btn btn-link" type="button" ng-click="addFriend(suggestion);" style="margin:5px;">Add</button>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align:center;">
+                <button class="btn btn-primary" type="button" ng-click="loadSuggestions();" style="margin:5px;">More</button>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -54,6 +70,7 @@
     <script src="~/App/Services/authService.js"></script>
     <script src="~/App/Services/postsService.js"></script>
     <script src="~/App/Services/suggestionsService.js"></script>
+    <script src="~/App/Services/friendsService.js"></script>
     <!--controllers-->
     <script src="~/App/Controllers/mainController.js"></script>
     <!--modules-->

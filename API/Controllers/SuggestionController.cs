@@ -29,24 +29,37 @@ namespace API.Controllers
         // GET: api/Suggestion/
         public IEnumerable<Users> Get()
         {
-            var friends = new List<string>();
+            // TODO refactor / extract method
             var suggestions = new List<Users>();
 
             var userId = _userClaims.GetUserId();
 
             var friendsIds = _friendsRepository.GetFriendsById(userId).Select(f => f.FriendId);
+
             var users = _userRepository.GetUsers();
+            var allFriends = _friendsRepository.GetAllFriends();
 
-            foreach (var item in friendsIds)
+            // if user has no friend, suggest random 3
+            if (friendsIds.Count() == 0)
             {
-                friends.AddRange(_friendsRepository.GetFriendsById(item).Select(f => f.FriendId));
-            };
+                for (int i = 0; i < 3; i++)
+                {
+                    var random = new Random(i);
+                    var randomId = random.Next(1, users.Count());
+                    suggestions.Add(users.FirstOrDefault(u => u.Id == randomId));
+                }
+                return suggestions;
+            }
 
-            friends = friends.Distinct().ToList();
+            var friends = Relations.GetFriendsOfFriendsIds(friendsIds, allFriends);
 
             foreach (var item in friends)
             {
-                suggestions.Add(_userRepository.GetUserByUserId(item));
+                if (friendsIds.Contains(item))
+                {
+                    continue;
+                }
+                suggestions.Add(users.FirstOrDefault(u => u.UserId == item));
             }
 
             return suggestions;

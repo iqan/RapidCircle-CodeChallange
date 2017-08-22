@@ -35,8 +35,7 @@ namespace Data.Repository.EF
 
         public IEnumerable<Friends> GetAllFriends()
         {
-            // TODO implement
-            return null;
+            return _context.Friends;
         }
 
         public IEnumerable<Friends> GetFriendsById(string userId)
