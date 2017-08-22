@@ -17,18 +17,20 @@ namespace API.Controllers
     {
         private readonly IPostsRepository _repository;
         private readonly Mapper _mapper;
+        private readonly UserClaims _userClaims;
 
-        public PostsController(IPostsRepository repository, Mapper mapper)
+        public PostsController(IPostsRepository repository, Mapper mapper, UserClaims userClaims)
         {
             _repository = repository;
             _mapper = mapper;
+            _userClaims = userClaims;
         }
         
         // GET: api/Posts
         public IEnumerable<ViewModels.Posts> Get()
         {
-            var userId = UserClaims.GetUserId();
-            var posts = _repository.GetPostsByUserId(userId);
+            var userId = _userClaims.GetUserId();
+            var posts = _repository.GetPostsForUserId(userId);
             var postList = posts.Select(item => _mapper.MapToPostsViewModel(item));
             return postList;
         }
@@ -42,9 +44,8 @@ namespace API.Controllers
         // POST: api/Posts
         public IHttpActionResult Post([FromBody]Posts post)
         {
-            var userId = UserClaims.GetUserId();
+            var userId = _userClaims.GetUserId();
             post.UserId = userId;
-            post.DatePosted = DateTime.Now;
             var result = _repository.AddPost(post);
             return CreatedAtRoute("DefaultApi", new { controller = "posts", id = post.Id }, post);
         }

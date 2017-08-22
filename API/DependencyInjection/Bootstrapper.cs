@@ -35,6 +35,9 @@ namespace API.DependencyInjection
             builder.RegisterType<Mapper>()
                 .AsSelf();
 
+            builder.RegisterType<UserClaims>()
+                .AsSelf();
+
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
             var container = builder.Build();

@@ -32,9 +32,10 @@ namespace Data.Repository.EF
             return _context.Posts.Find(postId);
         }
 
-        public IEnumerable<Posts> GetPostsByUserId(string userId)
+        public IEnumerable<Posts> GetPostsForUserId(string userId)
         {
-            return _context.Posts.Where(p => p.UserId.Equals(userId));
+            var friendsIds = _context.Friends.Where(f => f.UserId == userId).Select(f=>f.FriendId);
+            return _context.Posts.Where(p => p.UserId.Equals(userId) || friendsIds.Contains(p.UserId));
         }
 
         public int UpdatePost(Posts post)

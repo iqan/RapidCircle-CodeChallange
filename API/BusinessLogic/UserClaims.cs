@@ -19,13 +19,13 @@ namespace API.BusinessLogic
         public static string ReadPermission = ConfigurationManager.AppSettings["api:ReadScope"];
         public static string WritePermission = ConfigurationManager.AppSettings["api:WriteScope"];
 
-        public static string GetUserId()
+        public virtual string GetUserId()
         {
             HasRequiredScopes(ReadPermission);
             return ClaimsPrincipal.Current.FindFirst(objectIdElement).Value;
         }
 
-        private static void HasRequiredScopes(string permission)
+        private void HasRequiredScopes(string permission)
         {
             if (ClaimsPrincipal.Current.FindFirst(scopeElement)==null)
             {

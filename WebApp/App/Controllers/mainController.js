@@ -36,7 +36,7 @@
     };
 
     checkToken = function () {
-        if ($scope.accessToken == null || $scope.accessToken== undefined) {
+        if ($scope.accessToken === null || $scope.accessToken === undefined) {
             authService.getAccessToken();
             $scope.accessToken = sessionStorage.getItem('iqans.accessToken');
         }
