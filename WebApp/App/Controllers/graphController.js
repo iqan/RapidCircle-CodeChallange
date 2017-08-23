@@ -162,6 +162,15 @@
         myDiagram.model = new go.GraphLinksModel(nodeDataArray, linkDataArray);
     };
 
+    initPage = function () {
+        authService.getAccessToken().then(function (result) {
+            sessionStorage.removeItem('iqans.accessToken');
+            $scope.accessToken = result.data;
+            sessionStorage.setItem('iqans.accessToken', result.data);
+        });
+    };
+
+    initPage();
     $scope.loadGraph();
 }
 

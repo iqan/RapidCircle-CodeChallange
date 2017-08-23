@@ -27,8 +27,6 @@ namespace WebApp
 
         // B2C policy identifiers
         public static string SignUpSignInPolicyId = ConfigurationManager.AppSettings["ida:SignUpSignInPolicyId"];
-        public static string EditProfilePolicyId = ConfigurationManager.AppSettings["ida:EditProfilePolicyId"];
-        public static string ResetPasswordPolicyId = ConfigurationManager.AppSettings["ida:ResetPasswordPolicyId"];
 
         public static string DefaultPolicy = SignUpSignInPolicyId;
 
