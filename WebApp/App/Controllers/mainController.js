@@ -1,4 +1,4 @@
-﻿var mainController = function ($scope, authService, postsService, suggestionsService, friendsService) {
+﻿var mainController = function ($scope, authService, postsService, suggestionsService, friendsService, edgesService) {
     
     $scope.newPost = {
         UserId:"",
@@ -64,6 +64,24 @@
             });
     };
 
+    $scope.getFriends = function () {
+        console.log('getting friends.');
+        friendsService.getFriends($scope.accessToken)
+            .then(function (result) {
+                console.log('got friends');
+                console.log(result.data);
+            });
+    };
+
+    $scope.getEdges = function () {
+        console.log('getting edges.');
+        edgesService.getEdges($scope.accessToken)
+            .then(function (result) {
+                console.log('got edges');
+                console.log(result.data);
+            });
+    };
+
     checkToken = function () {
         if ($scope.accessToken === null || $scope.accessToken === undefined) {
             tokenFromStorage = sessionStorage.getItem('iqans.accessToken');
@@ -80,4 +98,4 @@
     };
 }
 
-mainController.$inject = ['$scope', 'authService', 'postsService', 'suggestionsService', 'friendsService'];
+mainController.$inject = ['$scope', 'authService', 'postsService', 'suggestionsService', 'friendsService', 'edgesService'];

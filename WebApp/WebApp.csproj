@@ -184,6 +184,7 @@
     <Content Include="App\Services\friendsService.js" />
     <Content Include="App\Services\postsService.js" />
     <Content Include="App\Controllers\mainController.js" />
+    <Content Include="App\Services\edgesService.js" />
     <Content Include="App\Services\suggestionsService.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />

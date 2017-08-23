@@ -17,18 +17,21 @@ namespace API.Controllers
     {
         private readonly IFriendsRepository _friendsRepository;
         private readonly UserClaims _userClaims;
+        private readonly Mapper _mapper;
 
-        public FriendsController(IFriendsRepository friendsRepository, UserClaims userClaims)
+        public FriendsController(IFriendsRepository friendsRepository, Mapper mapper, UserClaims userClaims)
         {
             _friendsRepository = friendsRepository;
             _userClaims = userClaims;
+            _mapper = mapper;
         }
 
         // GET: api/Friends
-        public IEnumerable<Friends> Get()
+        public IEnumerable<ViewModels.Friends> Get()
         {
             var userId = _userClaims.GetUserId();
-            return _friendsRepository.GetFriendsById(userId);
+            var friendsIds = _friendsRepository.GetFriendsById(userId).Select(f=>f.FriendId);
+            return _mapper.MapToFriendsViewModel(friendsIds);
         }
 
         // POST: api/Friends
@@ -40,11 +43,6 @@ namespace API.Controllers
             }
             var result = _friendsRepository.AddFriend(friend);
             return CreatedAtRoute("DefaultApi", new { controller = "friends", id = friend.Id }, friend);
-        }
-
-        // DELETE: api/Friends/5
-        public void Delete(int id)
-        {
         }
     }
 }

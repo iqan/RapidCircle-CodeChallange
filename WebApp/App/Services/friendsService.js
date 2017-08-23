@@ -14,6 +14,16 @@
         });
     };
 
+    fac.getFriends = function (token) {
+        return $http({
+            method: 'GET',
+            url: 'https://localhost:44388/api/friends',
+            headers: {
+                'Authorization': 'bearer ' + token
+            }
+        });
+    };
+
     return fac;
 };
 

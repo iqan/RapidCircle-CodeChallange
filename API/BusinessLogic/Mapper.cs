@@ -38,5 +38,12 @@ namespace API.BusinessLogic
         {
             return _userRepository.GetUsers().Where(u => userIds.Contains(u.UserId));
         }
+
+        internal IEnumerable<ViewModels.Friends> MapToFriendsViewModel(IEnumerable<string> friendsIds)
+        {
+            var allUsers = _userRepository.GetUsers();
+            return _userRepository.GetUsers().Where(u=>friendsIds.Contains(u.UserId))
+                .Select(u=>new ViewModels.Friends { key = u.Id, text = u.Name });
+        }
     }
 }
