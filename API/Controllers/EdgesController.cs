@@ -35,17 +35,21 @@ namespace API.Controllers
             var allUser = _userRepository.GetUsers();
             var allFriends = _friendsRepository.GetAllFriends();
 
-            var usersFriends = allFriends.Where(f => f.UserId == userId);
+            var usersFriends = allFriends.Where(f => f.UserId == userId).ToList();
+            var userFriendsIds = usersFriends.Select(f => f.FriendId);
 
             foreach (var item in usersFriends)
             {
-                var friendsOfFriends = allFriends.Where(f => f.UserId == item.UserId);
+                var friendsOfFriends = allFriends.Where(f => f.UserId == item.FriendId);
 
                 foreach (var friend in friendsOfFriends)
                 {
-                    if (friend.FriendId == userId)
+                    if (userFriendsIds.Contains(friend.FriendId))
                     {
-                        edges.Add(new Edges { from = item.Id, to = friend.Id });
+                        var fromId = allUser.FirstOrDefault(u=>u.UserId == item.FriendId).Id;
+                        var toId = allUser.FirstOrDefault(u => u.UserId == friend.FriendId).Id;
+
+                        edges.Add(new Edges { from = fromId, to = toId });
                     }
                 }
             }
