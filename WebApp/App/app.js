@@ -1,6 +1,7 @@
 ﻿var app = angular.module('app', []);
 
 app.controller('mainController', mainController);
+app.controller('graphController', graphController);
 
 app.factory('authService', authService);
 app.factory('postsService', postsService);

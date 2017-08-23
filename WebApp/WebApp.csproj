@@ -180,6 +180,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App\app.js" />
+    <Content Include="App\Controllers\graphController.js" />
+    <Content Include="App\go.js" />
+    <Content Include="App\graphGenScript.js" />
     <Content Include="App\Services\authService.js" />
     <Content Include="App\Services\friendsService.js" />
     <Content Include="App\Services\postsService.js" />
@@ -999,6 +1002,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Scripts\version.json" />
     <Content Include="Views\Home\Timeline.cshtml" />
+    <Content Include="Views\Home\Network.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

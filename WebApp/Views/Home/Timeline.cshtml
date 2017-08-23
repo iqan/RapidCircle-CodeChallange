@@ -2,64 +2,58 @@
 @{
     ViewBag.Title = "Timeline";
 }
-
-@if (!string.IsNullOrEmpty(ViewBag.Error))
-{
-    <p class="well">
-        @ViewBag.Error
-    </p>
-}
-
-<div class="row" ng-app="app" ng-controller="mainController">
-    <div class="col-md-3 well" style="margin:5px;">
-        <img src="~/favicon.ico" />
-        <p>User Information.</p>
-    </div>
-    <div class="col-md-5 well" style="margin:5px;">
-        <form class="fomr-horizontal" id="postForm" ng-submit="post();">
-            <textarea class="form-control" style="min-width:100%" type="text" ng-model="newPost.Text"></textarea>
-            <button class="btn btn-primary pull-right" type="submit" style="margin:5px;">Post</button>
-        </form>
-        <div style="margin:20px"></div>
-        <button class="btn btn-primary" type="button" ng-click="getPosts();" style="margin:5px;">Get Posts</button>
-        <div style="margin:5px;">
-            <div class="well" ng-show="!posts.length">
-                No posts are available.
-            </div>
-            <div class="animate-repeat" ng-repeat="post in posts| limitTo:totalPosts" ng-show="posts.length">
-                <div class="well" style="margin:2px;background-color:white;">
-                    <div class="list-group-item-heading" style="font-weight:bold;">
-                        {{ post.UserName }}
-                    </div>
-                    <div class="text-left">
-                        {{ post.Text }}
+<div ng-app="app" ng-controller="mainController">
+    <p class="well" ng-show="errorMessage" ng-model="errorMessage"></p>
+    <div class="row">
+        <div class="col-md-3 well" style="margin:5px;">
+            <img src="~/favicon.ico" />
+            <p>User Information.</p>
+        </div>
+        <div class="col-md-5 well" style="margin:5px;">
+            <form class="fomr-horizontal" id="postForm" ng-submit="post();">
+                <textarea class="form-control" placeholder="write something." style="min-width:100%" type="text" ng-model="newPost.Text"></textarea>
+                <button class="btn btn-primary" type="submit" style="margin:5px;">Post</button>
+            </form>
+            <div style="height:20px;"></div>
+            @*<button class="btn btn-primary" type="button" ng-click="getPosts();" style="margin:5px;">Get Posts</button>*@
+            <div style="margin:5px;">
+                <div class="well" ng-show="!posts.length">
+                    No posts are available.
+                </div>
+                <div class="animate-repeat" ng-repeat="post in posts| limitTo:totalPosts" ng-show="posts.length">
+                    <div class="well" style="margin:2px;background-color:white;">
+                        <div class="list-group-item-heading" style="font-weight:bold;">
+                            {{ post.UserName }}
+                        </div>
+                        <div class="text-left">
+                            {{ post.Text }}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div style="text-align:center;">
-                <button class="btn btn-primary" type="button" ng-click="loadPosts();" style="margin:5px;">More</button>
+                <div style="text-align:center;">
+                    <button class="btn btn-success" ng-show="posts.length" type="button" ng-click="loadPosts();" style="margin:5px;">More</button>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-3 well" style="margin:5px;">
-        <button class="btn btn-success" type="button" ng-click="getSuggestions();" style="margin:5px;">Get Suggestions</button>
-        <div style="margin:5px;">
-            <div class="well" ng-show="!suggestions.length">
-                No suggestions are available.
-            </div>
-            <div class="animate-repeat" ng-repeat="suggestion in suggestions| limitTo:totalSuggestions" ng-show="suggestions.length">
-                <div class="well" style="margin:2px;background-color:white;">
-                    <div class="list-group-item-heading" style="font-weight:bold;">
-                        {{ suggestion.Name }}
-                        <button class="btn btn-link" type="button" ng-click="addFriend(suggestion);" style="margin:5px;">Add</button>
+        <div class="col-md-3 well" style="margin:5px;">
+            <p class="list-group-item-heading">Friend Suggestions</p>
+            @*<button class="btn btn-success" type="button" ng-click="getSuggestions();" style="margin:5px;">Get Suggestions</button>*@
+            <div style="margin:5px;">
+                <div class="well" ng-show="!suggestions.length">
+                    No suggestions are available.
+                </div>
+                <div class="animate-repeat" ng-repeat="suggestion in suggestions| limitTo:totalSuggestions" ng-show="suggestions.length">
+                    <div class="well" style="margin:2px;background-color:white;">
+                        <div class="list-group-item-heading" style="font-weight:bold;">
+                            {{ suggestion.Name }}
+                            <button class="btn btn-link" type="button" ng-click="addFriend(suggestion);" style="margin:5px;">Add</button>
+                        </div>
                     </div>
                 </div>
+                <div style="text-align:center;">
+                    <button class="btn btn-success" type="button" ng-show="suggestions.length" ng-click="loadSuggestions();" style="margin:5px;">More</button>
+                </div>
             </div>
-            <div style="text-align:center;">
-                <button class="btn btn-primary" type="button" ng-click="loadSuggestions();" style="margin:5px;">More</button>
-            </div>
-            <button class="btn btn-primary" type="button" ng-click="getEdges();" style="margin:5px;">edges</button>
-            <button class="btn btn-primary" type="button" ng-click="getFriends();" style="margin:5px;">friends</button>
         </div>
     </div>
 </div>
@@ -68,6 +62,7 @@
     <script src="~/Scripts/angular.min.js" type="text/javascript"></script>
     <script src="~/Scripts/angular-route.min.js" type="text/javascript"></script>
     <script src="~/Scripts/angular-animate.min.js" type="text/javascript"></script>
+    <script src="~/App/go.js"></script>
     <!--services-->
     <script src="~/App/Services/authService.js"></script>
     <script src="~/App/Services/postsService.js"></script>
@@ -76,6 +71,7 @@
     <script src="~/App/Services/edgesService.js"></script>
     <!--controllers-->
     <script src="~/App/Controllers/mainController.js"></script>
+    <script src="~/App/Controllers/graphController.js"></script>
     <!--modules-->
     <script src="~/App/app.js"></script>
 }

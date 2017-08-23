@@ -16,20 +16,16 @@ namespace WebApp.Controllers
             return View();
         }
 
+        const string errorMessage = "Something went wrong! Close the browser and try again."+
+            " If issue is still there please clear cookies/cache and try again.";
+
         public ActionResult Timeline()
         {
-            try
-            {
-                if (true)
-                {
-                    var accessToken = Users.GetAccessToken(this.HttpContext);
-                    ViewBag.AccessToken = accessToken.Result;
-                }
-            }
-            catch (Exception ex)
-            {
-                ViewBag.Error = "An error occurred. Detais: " + ex.Message;
-            }
+            return View();
+        }
+
+        public ActionResult Network()
+        {
             return View();
         }
 
@@ -42,9 +38,8 @@ namespace WebApp.Controllers
             }
             catch (Exception ex)
             {
-                ViewBag.Error = "An error occurred. Detais: " + ex.Message;
+                return Json(new { error = errorMessage }, JsonRequestBehavior.AllowGet);
             }
-            return null;
         }
     }
 }

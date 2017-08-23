@@ -1,4 +1,4 @@
-﻿var mainController = function ($scope, authService, postsService, suggestionsService, friendsService, edgesService) {
+﻿var mainController = function ($scope, authService, postsService, suggestionsService, friendsService) {
     
     $scope.newPost = {
         UserId:"",
@@ -9,6 +9,7 @@
     $scope.totalPosts = 5;
     $scope.suggestions = [];
     $scope.totalSuggestions = 1;
+    $scope.errorMessage;
 
     authService.getAccessToken();
     $scope.accessToken = sessionStorage.getItem('iqans.accessToken');
@@ -20,6 +21,7 @@
             .then(function (result) {
                 console.log(result.data);
                 $scope.newPost.Text = "";
+                $scope.posts.push(result.data);
             });
     };
 
@@ -64,24 +66,6 @@
             });
     };
 
-    $scope.getFriends = function () {
-        console.log('getting friends.');
-        friendsService.getFriends($scope.accessToken)
-            .then(function (result) {
-                console.log('got friends');
-                console.log(result.data);
-            });
-    };
-
-    $scope.getEdges = function () {
-        console.log('getting edges.');
-        edgesService.getEdges($scope.accessToken)
-            .then(function (result) {
-                console.log('got edges');
-                console.log(result.data);
-            });
-    };
-
     checkToken = function () {
         if ($scope.accessToken === null || $scope.accessToken === undefined) {
             tokenFromStorage = sessionStorage.getItem('iqans.accessToken');
@@ -96,6 +80,9 @@
             }
         }
     };
+
+    $scope.getPosts();
+    $scope.getSuggestions();
 }
 
-mainController.$inject = ['$scope', 'authService', 'postsService', 'suggestionsService', 'friendsService', 'edgesService'];
+mainController.$inject = ['$scope', 'authService', 'postsService', 'suggestionsService', 'friendsService'];

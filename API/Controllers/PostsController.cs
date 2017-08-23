@@ -47,7 +47,8 @@ namespace API.Controllers
             var userId = _userClaims.GetUserId();
             post.UserId = userId;
             var result = _repository.AddPost(post);
-            return CreatedAtRoute("DefaultApi", new { controller = "posts", id = post.Id }, post);
+            var postView = _mapper.MapToPostsViewModel(post);
+            return CreatedAtRoute("DefaultApi", new { controller = "posts", id = postView.Id }, postView);
         }
 
         // PUT: api/Posts/5
