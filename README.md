@@ -12,7 +12,6 @@ https://youtu.be/JbCVerVOzOM
 
 ## Specifications
 
-### Technology stack
 * ASP.NET MVC Web App with AngularJS
 * Backend usig ASP.NET WebApi 2
 * Graph using GoJS
@@ -21,7 +20,7 @@ https://youtu.be/JbCVerVOzOM
 * Authentication and user management using MS Azure Active Directory B2C
 
 
-### How To Use
+## How To Use
 * Clone repository to your machine
 * Extract and open in visual studio (2015 or later)
 * Change Web configs with your Azure AD B2C application settingss and app endpoint
