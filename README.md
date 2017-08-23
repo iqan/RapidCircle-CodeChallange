@@ -1,6 +1,6 @@
 # RapidCircle-CodeChallange
 RapidCircle-CodeChallange
-- - - -
+
 ## Demo
 ### Video links for demo
 #### Existing user flow
@@ -9,7 +9,6 @@ https://youtu.be/o9dwYPq7-Ao
 #### New user flow
 https://youtu.be/JbCVerVOzOM
 
-- - - -
 
 ## Specifications
 
@@ -21,7 +20,6 @@ https://youtu.be/JbCVerVOzOM
 * version-control: Git
 * Authentication and user management using MS Azure Active Directory B2C
 
-- - - -
 
 ### How To Use
 * Clone repository to your machine
@@ -30,5 +28,3 @@ https://youtu.be/JbCVerVOzOM
 * Run API first, then WebApp.
 * Done!
 * Now you can see timeline - friends posts. Add friends. Get suggestions. And visualize network with graph.
-
-- - - -
