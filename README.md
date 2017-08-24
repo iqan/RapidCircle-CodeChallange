@@ -27,3 +27,12 @@ https://youtu.be/JbCVerVOzOM
 * Run API first, then WebApp.
 * Done!
 * Now you can see timeline - friends posts. Add friends. Get suggestions. And visualize network with graph.
+* local Urls:
+* Api: https://localhost:44388/
+* WebApp: https://localhost:44328/
+* Note: If you face SSL issue, just bypass it in code using `ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;` or install self signed certificate
+
+
+## Demo Apps
+* Api:https://friendsapi.azurewebsites.net
+* WebApp: https://friendsweb.azurewebsites.net
