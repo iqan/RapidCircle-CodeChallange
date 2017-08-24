@@ -7,6 +7,7 @@ using API.BusinessLogic;
 using System.Web;
 using System.Web.Http.Results;
 using System;
+using Vm = API.ViewModels;
 
 namespace UnitTests.API.Controllers
 {
@@ -18,29 +19,42 @@ namespace UnitTests.API.Controllers
         {
             var mockUserClaims = new Mock<UserClaims>();
             var mockRepo = new Mock<IPostsRepository>();
-            var mockMapper = new Mock<Mapper>(null);
+            var mockUserRepo = new Mock<IUsersRepository>();
+            var mapper = new Mapper(mockUserRepo.Object);
 
             // setup
-            var userId = "userId123";
             var datePosted = DateTime.Now;
-            
-            mockUserClaims.Setup(s=>s.GetUserId()).Returns(userId);
-            mockRepo.Setup(s => s.AddPost(It.IsAny<Posts>())).Returns(1);
 
-            var post = new Posts {
-                DatePosted = datePosted,
-                Text = "qwe",
-                UserId = userId
+            var user = new Users
+            {
+                Id =1,
+                UserId = "id",
+                Name = "name"
             };
 
-            var postsController = new PostsController(mockRepo.Object, mockMapper.Object, mockUserClaims.Object);
+            var post = new Posts
+            {
+                DatePosted = datePosted,
+                Text = "qwe",
+                UserId = user.UserId
+            };
+
+            var postsvm = new Vm.Posts();
+
+            mockUserClaims.Setup(s=>s.GetUserId()).Returns(user.UserId);
+            mockRepo.Setup(s => s.AddPost(It.IsAny<Posts>())).Returns(1);
+            mockUserRepo.Setup(s=>s.GetUserByUserId(It.IsAny<string>())).Returns(user);
+
+            var postsController = new PostsController(mockRepo.Object, mapper, mockUserClaims.Object);
 
             var result = postsController.Post(post);
 
-            Assert.IsInstanceOf<CreatedAtRouteNegotiatedContentResult<Posts>>(result);
+            Assert.IsInstanceOf<CreatedAtRouteNegotiatedContentResult<Vm.Posts>>(result);
 
             mockUserClaims.Verify(v => v.GetUserId(), Times.Once);
             mockRepo.Verify(v => v.AddPost(It.Is<Posts>(i=>i==post)), Times.Once);
+            mockUserRepo.Verify(v => v.GetUserByUserId(It.Is<string>(i => i == user.UserId))
+                , Times.Once);
         }
     }
 }
