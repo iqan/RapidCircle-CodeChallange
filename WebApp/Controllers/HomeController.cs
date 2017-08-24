@@ -38,7 +38,7 @@ namespace WebApp.Controllers
             }
             catch (Exception ex)
             {
-                return Json(new { error = errorMessage }, JsonRequestBehavior.AllowGet);
+                return Json(new { error = errorMessage, errorDetails = ex.Message, innerException = ex.InnerException.Message }, JsonRequestBehavior.AllowGet);
             }
         }
     }

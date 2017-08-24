@@ -81,26 +81,12 @@
         }
     };
 
-    checkToken = function () {
-        if ($scope.accessToken === null || $scope.accessToken === undefined) {
-            tokenFromStorage = sessionStorage.getItem('iqans.accessToken');
-            if ($scope.accessToken === null || $scope.accessToken === undefined) {
-                authService.getAccessToken()
-                    .then(function (result) {
-                        $scope.accessToken = result.data;
-                        console.log('token: ' + $scope.accessToken);
-                        sessionStorage.setItem('iqans.accessToken', result.data);
-                    });
-            } else {
-                $scope.accessToken = tokenFromStorage;
-            }
-        }
-    };
-
     initPage = function () {
         authService.getAccessToken().then(function (result) {
             sessionStorage.removeItem('iqans.accessToken');
             $scope.accessToken = result.data;
+            console.log('auth service response:');
+            console.log(result.data);
             sessionStorage.setItem('iqans.accessToken', result.data);
             checkToken();
             $scope.getPosts();
