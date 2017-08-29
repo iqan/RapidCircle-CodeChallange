@@ -30,7 +30,9 @@ https://youtu.be/JbCVerVOzOM
 * local Urls:
 * Api: https://localhost:44388/
 * WebApp: https://localhost:44328/
-* Note: If you face SSL issue, just bypass it in code using `ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;` or install self signed certificate
+* Note: 
+  * If you face SSL issue, just bypass it in code using `ServicePointManager.ServerCertificateValidationCallback += (sender, cert, chain, sslPolicyErrors) => true;` or install self signed certificate
+  * __DO NOT UPDATE NUGET PACKAGE `System.IdentityModel.Tokens.Jwt`. User v4 only.__ - It may cause build errors. See changelog: https://github.com/AzureAD/azure-activedirectory-identitymodel-extensions-for-dotnet/blob/master/CHANGELOG.md#major-changes-from-4x
 
 
 ## Demo Apps
